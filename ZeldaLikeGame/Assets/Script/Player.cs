@@ -11,7 +11,8 @@ public class Player : MonoBehaviour
 	public Image[] hearts;
 	public int maxHealth;
 	int currentHealth;
-	public gameObject sword;
+	public GameObject sword;
+	public float thrustpower;
 
 	// Use this for initialization
 	void Start () 
@@ -44,18 +45,22 @@ public class Player : MonoBehaviour
 	}
 	void Attack()
 	{
-		GameObject newSword = Instantiate (sword, transform.position, sword.transform.rotation);
+		GameObject newSword =Instantiate(sword, transform.position, sword.transform.rotation);
+		#region
 		int swordDir = anim.GetInteger ("dir");
 		if (swordDir == 0)
+		{
 			newSword.transform.Rotate (0,0,0);
+			newSword.GetComponent<Rigidbody2D>().AddForce(Vector2.up * thrustpower);
+		}
 		else if (swordDir == 1)
 			newSword.transform.Rotate (0,0,180);
 		else if (swordDir == 2)
 			newSword.transform.Rotate (0,0,90);
 		else if (swordDir == 3)
 			newSword.transform.Rotate (0,0,-90);
-		
-		 
+		#endregion
+
 	}
 	void Movement()
 	{
